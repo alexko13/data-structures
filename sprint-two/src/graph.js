@@ -23,8 +23,12 @@ Graph.prototype.contains = function(node){
 
 // ------------------------
 // Removes a node from the graph.
-//O(1)
+//O(n^2)
 Graph.prototype.removeNode = function(node){
+	for(var i = 0; i < this.storage[node].length; i++) {
+		var otherNode = this.storage[node][i];
+		this.removeEdge(node, otherNode);
+	}
 	delete this.storage[node];
 };
 
