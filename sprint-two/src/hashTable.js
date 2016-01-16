@@ -3,6 +3,7 @@ var HashTable = function(){
   this._storage = LimitedArray(this._limit);
 };
 
+//O(1) assuming even distribution and resizing
 HashTable.prototype.insert = function(k, v){
   var i = getIndexBelowMaxForKey(k, this._limit);
   if(!this._storage.get(i)) {
@@ -10,7 +11,7 @@ HashTable.prototype.insert = function(k, v){
   }
 
   var bucket = this._storage.get(i);
-  for(var i =0; i < bucket.length; i++) {
+  for(var i = 0; i < bucket.length; i++) {
   	if(bucket[i][0] === k) {
   		bucket[i][1] = v;
   		return;
@@ -20,6 +21,7 @@ HashTable.prototype.insert = function(k, v){
   bucket[bucket.length] = [k, v];
 };
 
+//O(1) assuming even distribution and resizing
 HashTable.prototype.retrieve = function(k){
   var i = getIndexBelowMaxForKey(k, this._limit);
   var bucket = this._storage.get(i);
@@ -30,6 +32,7 @@ HashTable.prototype.retrieve = function(k){
   }
 };
 
+//O(1) assuming even distribution and resizing
 HashTable.prototype.remove = function(k){
 	var i = getIndexBelowMaxForKey(k, this._limit);
 	var bucket = this._storage.get(i);
@@ -39,8 +42,6 @@ HashTable.prototype.remove = function(k){
   		bucket[i][1] = null;
   	}
   }
-	//Replace line above with bucket[k] = null;
-	//to pass old spec where expect(hashTable.retrieve('Steven')).to.equal(null);
 };
 
 
