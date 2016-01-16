@@ -6,21 +6,39 @@ var HashTable = function(){
 HashTable.prototype.insert = function(k, v){
   var i = getIndexBelowMaxForKey(k, this._limit);
   if(!this._storage.get(i)) {
-  	this._storage.set(i, {});
+  	this._storage.set(i, []);
   }
+
   var bucket = this._storage.get(i);
-  bucket[k] = v;
+  for(var i =0; i < bucket.length; i++) {
+  	if(bucket[i][0] === k) {
+  		bucket[i][1] = v;
+  		return;
+  	}
+  }
+
+  bucket[bucket.length] = [k, v];
 };
 
 HashTable.prototype.retrieve = function(k){
   var i = getIndexBelowMaxForKey(k, this._limit);
-  return this._storage.get(i)[k];
+  var bucket = this._storage.get(i);
+  for(var i = 0; i < bucket.length; i++) {
+  	if(bucket[i][0] === k) {
+  		return bucket[i][1];
+  	}
+  }
 };
 
 HashTable.prototype.remove = function(k){
 	var i = getIndexBelowMaxForKey(k, this._limit);
 	var bucket = this._storage.get(i);
-	delete bucket[k];
+
+	for(var i = 0; i < bucket.length; i++) {
+  	if(bucket[i][0] === k) {
+  		bucket[i][1] = null;
+  	}
+  }
 	//Replace line above with bucket[k] = null;
 	//to pass old spec where expect(hashTable.retrieve('Steven')).to.equal(null);
 };
