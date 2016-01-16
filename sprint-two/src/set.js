@@ -8,7 +8,9 @@ var setPrototype = {};
 
 //O(1)
 setPrototype.add = function(item){
-	this.storage[item] = item;
+  if(!this.storage[item]){
+    this.storage[item] = item;
+  }
 };
 
 //O(1)
@@ -18,7 +20,9 @@ setPrototype.contains = function(item){
 
 //O(1)
 setPrototype.remove = function(item){
-	delete this.storage[item];
+  if(this.storage[item]){
+	  delete this.storage[item];
+  }
 };
 
 /*
