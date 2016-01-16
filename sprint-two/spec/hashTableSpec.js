@@ -34,7 +34,7 @@ describe('hashTable', function() {
     hashTable.remove('Steven');
     //changed to equal null to be undefined, since if it were null we would end up with
     //a boundless data structure
-    expect(hashTable.retrieve('Steven')).to.equal(undefined);
+    expect(hashTable.retrieve('Steven')).to.equal(null);
   });
 
   it('should handle hash function collisions', function(){
